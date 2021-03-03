@@ -26,7 +26,7 @@ public class KafkaConsumerConfig {
     private String groupId;
 
     @Bean
-    public ConsumerFactory<String,String> consumerFactory(){
+    public ConsumerFactory<String,User> consumerFactory(){
 
         Map<String, Object> props = new HashMap<>();
         props.put(
@@ -40,15 +40,15 @@ public class KafkaConsumerConfig {
                 StringDeserializer.class);
         props.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                JsonDeserializer.class);
+                UserDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String>
+    public ConcurrentKafkaListenerContainerFactory<String, User>
     kafkaListenerContainerFactory() {
 
-        ConcurrentKafkaListenerContainerFactory<String, String> factory =
+        ConcurrentKafkaListenerContainerFactory<String, User> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

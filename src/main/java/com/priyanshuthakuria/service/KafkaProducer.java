@@ -1,5 +1,6 @@
 package com.priyanshuthakuria.service;
 
+import com.priyanshuthakuria.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,9 @@ public class KafkaProducer {
     private String topic;
 
     @Autowired
-    private KafkaTemplate<String, Object> kafkaTemplate;
+    private KafkaTemplate<String, User> kafkaTemplate;
 
-    public void sendMessage(Object message) {
+    public void sendMessage(User message) {
         logger.info(String.format("#### -> Producing message -> %s", message.toString()));
         this.kafkaTemplate.send(topic, message);
     }
